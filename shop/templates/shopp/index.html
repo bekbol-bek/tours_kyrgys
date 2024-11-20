@@ -1,0 +1,22 @@
+{% extends 'shopp/page.html' %}
+
+{% block content %}
+
+<div class="card-container">
+        {% for f in posts %}
+            <div class="card">
+                {% if f.photo %}
+                    <img class="card-image" src="{{ f.photo.url }}" alt="{{ f.title }}">
+                {% endif %}
+                <div class="card-content">
+                    <h1 class="card-title">{{ f.title }}</h1>
+                    <h2 class="card-description">{{ f.discription }}</h2>
+                    {% if not f.photo %}
+                        <p class="no-image">Изображение отсутствует</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

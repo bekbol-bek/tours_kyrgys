@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tour Categories</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'shopp/css/tours.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'shopp/images1/freen.ico' %}">
+    <style>
+       body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+}
+
+.logo-link {
+    margin-bottom: 20px;
+}
+
+.logo-image {
+    width: 150px;
+    height: auto;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 30px;
+    color: #2c3e50;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+li {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 200px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-align: center;
+}
+
+li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+a {
+    text-decoration: none;
+    color: #2c3e50;
+    font-size: 18px;
+    font-weight: bold;
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+a:hover {
+    color: #2980b9;
+}
+        /* Пример дополнительной стилизации при наведении */
+.logo-link:hover .logo-image {
+            opacity: 0.4;
+        {
+    </style>
+</head>
+<body>
+    <a href="{% url 'index' %}" class="logo-link">
+        <img src="{% static 'shopp/images1/—Pngtree—and palm vector logo travel_3628052.png' %}" alt="logo" class="logo-image">
+    </a>
+    <h1>Tour Categories</h1>
+    <ul>
+        {% for category in categories %}
+            <li><a href="{% url 'tours_by_category' category.id %}">{{ category.name }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,154 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'shopp/css/styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'shopp/css/about.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'shopp/css/login.css' %}">
+    <script src="{% static 'shopp/js/scripts.js' %}" defer></script>
+    <link rel="icon" type="image/x-icon" href="{% static 'shopp/images/freenn.ico' %}">
+    <style>
+        /* Стили для контейнера блока */
+        .block {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        /* Общие стили для меню */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Стили для каждого элемента списка */
+        li.bek {
+            margin: 0 30px;
+            position: relative; /* Для выпадающего меню */
+        }
+
+        /* Стили для ссылок внутри меню */
+        li.bek a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            padding: 10px 20px;
+            display: block;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Стили для ссылки при наведении */
+        li.bek a:hover {
+            background-color: #007bff;
+            color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Стили для активной ссылки */
+        li.bek a.active {
+            background-color: #0056b3;
+            color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Стили для выпадающего меню */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Показ выпадающего меню при наведении */
+        li.bek:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Стили для контейнера логотипа */
+        .logo-link {
+            display: inline-block;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        /* Стили для логотипа */
+        .logo-image {
+            display: block;
+            max-width: 100px;
+            height: auto;
+            border: 0;
+            background-color: transparent;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Пример дополнительной стилизации при наведении */
+        .logo-link:hover .logo-image {
+            opacity: 0.4;
+        }
+    </style>
+</head>
+<body>
+<div class="block">
+    {% block mainmenu %}
+    <ul>
+        <a href="{% url 'index' %}" class="logo-link">
+            <img src="{% static 'shopp/images1/—Pngtree—and palm vector logo travel_3628052.png' %}" alt="logo" class="logo-image">
+        </a>
+        {% for i in menu %}
+            {% if i.title == "Туры" %}
+                <li class="bek">
+                    <a href="{% url i.url_name %}" {% if request.path == i.url_name %}class="active"{% endif %}>{{ i.title }}</a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'tours_by_category' 'hiking' %}">Пешеходные туры</a>
+                        <a href="{% url 'tours_by_category' 'cycling' %}">Велосипедные туры</a>
+                        <a href="{% url 'tours_by_category' 'water' %}">Водные туры</a>
+                        <a href="{% url 'tours_by_category' 'mountain' %}">Горные туры</a>
+                    </div>
+                </li>
+            {% elif i.title == "Типы экосистем" %}
+                <li class="bek">
+                    {% url i.url_name i.slug as url %}
+                    <a href="{{ url }}" {% if request.path == url %}class="active"{% endif %}>{{ i.title }}</a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'Ecosystem_by_category' 'forest' %}">Леса</a>
+                        <a href="{% url 'Ecosystem_by_category' 'desert' %}">Пустыне</a>
+                        <a href="{% url 'Ecosystem_by_category' 'mountain' %}">Горы</a>
+                        <a href="{% url 'Ecosystem_by_category' 'aquatic' %}">Водный экосистем</a>
+                    </div>
+                </li>
+
+                {% else %}
+                <li class="bek">
+                    <a href="{% url i.url_name %}" {% if request.path == i.url_name %}class="active"{% endif %}>{{ i.title }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    {% endblock %}
+</div>
+
+{% block content %}
+{% endblock %}
+</body>
+</html>

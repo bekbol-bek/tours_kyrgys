@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Категории экосистем</title>
+</head>
+<body>
+    <h1>Категории экосистем</h1>
+    <ul>
+        {% for category in categories %}
+            <li><a href="{% url 'Ecosystem_by_category' slug=category.slug %}">{{ category.name }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

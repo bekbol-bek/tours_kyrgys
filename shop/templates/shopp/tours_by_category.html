@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ category.name }} Tours</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'shopp/images1/freen.ico' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'shopp/css/tours.css' %}">
+   <style>
+     body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.tour-list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.tour-item {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tour-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.tour-photo {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.tour-title {
+    display: block;
+    font-size: 22px;
+    font-weight: bold;
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+.tour-price {
+    display: block;
+    font-size: 18px;
+    color: #27ae60;
+    margin-bottom: 15px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 30px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #3498db;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.back-link:hover {
+    background-color: #2980b9;
+}
+
+
+   </style>
+</head>
+<body>
+    <h1>{{ category.name }} Tours</h1>
+    <ul class="tour-list">
+        {% for tour in tours %}
+            <li class="tour-item">
+                {% if tour.photo %}
+                    <img src="{{ tour.photo.url }}" alt="{{ tour.title }}" class="tour-photo">
+                {% endif %}
+                <span class="tour-title">{{ tour.title }}</span>
+                <span class="tour-price">{{ tour.price }} сом</span>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'tour_categories' %}" class="back-link">Вернуться к категориям</a>
+</body>
+</html>
